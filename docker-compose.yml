@@ -1,0 +1,68 @@
+version: '3.7'
+services:
+  
+  #PHP Service
+  app:
+    build:
+      args:
+        user: wicked
+        group: docker
+        uid: 1000
+      context: .
+      dockerfile: Dockerfile
+    image: user-management
+    container_name: user-management-app
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - user-management-network
+
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: user-management-webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "9000:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - user-management-network
+
+  #MySQL Service
+  db:
+    image: mysql:8.0
+    container_name: user-management-db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: password123
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - dbdata:/var/lib/mysql/
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - user-management-network
+
+#Docker Networks
+networks:
+  user-management-network:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local
