@@ -10,12 +10,12 @@ services:
         uid: 1000
       context: .
       dockerfile: Dockerfile
-    image: user-management
-    container_name: user-management-app
+    image: laravel:8.0
+    container_name: user-management-api
     restart: unless-stopped
     tty: true
     environment:
-      SERVICE_NAME: app
+      SERVICE_NAME: api
       SERVICE_TAGS: dev
     working_dir: /var/www
     volumes:
@@ -50,8 +50,8 @@ services:
     environment:
       MYSQL_DATABASE: laravel
       MYSQL_ROOT_PASSWORD: password123
-      SERVICE_TAGS: dev
       SERVICE_NAME: mysql
+      SERVICE_TAGS: dev
     volumes:
       - dbdata:/var/lib/mysql/
       - ./mysql/my.cnf:/etc/mysql/my.cnf
