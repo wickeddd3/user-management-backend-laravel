@@ -46,7 +46,7 @@ class UserController extends Controller
         return response([
             'message'=>'Successfully created User',
             'data' => $user
-        ]);
+        ], 201);
     }
 
     /**
@@ -84,7 +84,7 @@ class UserController extends Controller
         return response([
             'message'=>'Successfully updated User',
             'data' => $user
-        ]);
+        ], 200);
     }
 
     /**
@@ -96,6 +96,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return response(['message'=>'Successfully deleted User']);
+        return response(['message'=>'Successfully deleted User'], 200);
     }
 }
