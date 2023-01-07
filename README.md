@@ -1,6 +1,10 @@
 ## User Management Backend
 
-### Running the application with docker compose
+Packages
+* Laravel Sanctum
+* Laravel Fortify
+
+Running the application with docker compose
 * docker-compose build app (Build the app image)
 * docker-compose up -d (Run environment in background)
 * docker-compose ps (Show information about the state of active services)
