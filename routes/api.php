@@ -15,10 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/user', function (Request $request) {
         return $request->user();
@@ -29,4 +25,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/users/{user}', [UserController::class, 'show']);
     Route::put('/users/{user}', [UserController::class, 'update']);
     Route::delete('/users/{user}', [UserController::class, 'destroy']);
+    Route::post('/users/export', [UserController::class, 'export']);
+    Route::get('/users/export/template', [UserController::class, 'template']);
+    Route::post('/users/import', [UserController::class, 'import']);
 });

@@ -1,8 +1,11 @@
 ## User Management Backend
 
 Packages
+* PHP 8
+* Laravel 8
 * Laravel Sanctum
 * Laravel Fortify
+* Maatwebsite Excel
 
 Running the application with docker compose
 * docker-compose build app (Build the app image)
