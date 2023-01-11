@@ -25,7 +25,11 @@ class UserController extends Controller
         $perPage = request()->query('per_page') ?: 10;
         $sort = request()->query('sort') ?: 'created_at';
         $direction = request()->query('direction') ?: 'asc';
-        return User::orderBy($sort, $direction)->paginate($perPage);
+        $query = request()->query('query');
+
+        return User::where('name','LIKE','%'.$query.'%')
+            ->orWhere('email','LIKE','%'.$query.'%')
+            ->orderBy($sort, $direction)->paginate($perPage);
     }
 
     /**
